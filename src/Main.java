@@ -2,63 +2,58 @@ public class Main {
     public static void main(String[] args)
     {
 
-        RownanieLiniowe row = new RownanieLiniowe();
+        RownanieLiniowe row1 = new RownanieLiniowe();
+        row1.rozwiaz();
 
+        RownanieKwadratowe row2 = new RownanieKwadratowe();
+        row2.rozwiaz();
     }
 
 }
 
 abstract class Rownanie
 {
-    protected double[] dane;
+    //
+    protected double[] d;
     protected double[] rozwiazania;
     protected int iloscRozwiazan; // 0, 1, nieskończenie
-    Rownanie(int ilosc_wej,int ilosc_wyj)
+    //
+
+    Rownanie(int ilosc_wej, int ilosc_wyj)
     {
-        dane = new double[ilosc_wej];
+        d = new double[ilosc_wej];
+        rozwiazania = new double[ilosc_wyj];
     }
+
     private void wprowadzDane()
     {
-        dane[0] = 4;
-        dane[1] = 2;
+        int a = 0; // do szybkiej zmiany ilości wejść
+        d[0] = 4;
+        d[1] = 2;
+        if(a!=0)
+        {
+            d[2] = 4;
+            d[3] = 2;
+        }
     }
-    private void wypiszWynik()
+
+    private void wypiszWynik(int iloscRozwiazan)
     {
-        System.out.println();
+        if(iloscRozwiazan==0)
+        System.out.println("Rownanie nie ma rozwiazań!");
+        else if(iloscRozwiazan==1)
+            System.out.println("Rozwiązaniem równania " + d[0] + "x + " + d[1] + " = 0; jest: " + -d[1]/d[0]);
+        else if(iloscRozwiazan==2)
+            System.out.println("dozrobienia");
+        else System.out.println("coś poszło nie tak");
     }
+
     abstract protected int rozwiazanie();
+
     final void rozwiaz()
     {
         wprowadzDane();
         iloscRozwiazan = rozwiazanie();
-        wypiszWynik();
-    }
-}
-
-class RownanieLiniowe extends Rownanie
-{
-    RownanieLiniowe()
-    {
-        super(2, 1);
-    }
-
-
-    public int rozwiazanie()
-    {
-        return 0;
-    }
-}
-
-class RownanieKwadratowe extends Rownanie
-{
-    RownanieKwadratowe()
-    {
-        super(6, 2);
-    }
-
-
-    public int rozwiazanie()
-    {
-        return 0;
+        wypiszWynik(iloscRozwiazan);
     }
 }
